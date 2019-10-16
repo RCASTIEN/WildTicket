@@ -4,7 +4,7 @@ class Home extends Component {
   render() {
     return (
       <Fragment>
-        <h1>WildTicket</h1>
+        <h1>WildTicket !</h1>
       </Fragment>
     );
   }
