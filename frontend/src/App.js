@@ -1,18 +1,20 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from "react";
+import { withRouter, Route, Switch } from "react-router-dom";
+import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Components/HomePage/Home";
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+function App({ location }) {
+  return (
+    <div className="App">
+      <NavBar />
+          <section className="route-section">
+            <Switch location={location} key={location}>
+              <Route exact path="/" component={Home} />
+            </Switch>
+        </section>
+    </div>
+  );
 }
 
-export default App;
+export default withRouter(App);
