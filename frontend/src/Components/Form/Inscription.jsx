@@ -19,7 +19,7 @@ const Inscription = (props) => {
         </FormGroup>
         <FormGroup>
         <Label for="exampleText">Date de naissance</Label>
-        <Input type="textarea" name="text" id="exampleText" />
+        <Input type="textarea" name="text" id="birthdate" />
       </FormGroup>
       <FormGroup check>
         <Label check>
