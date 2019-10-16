@@ -1,13 +1,23 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-class Connexion extends Component {
-  render() {
+
+const Connexion = (props) => {
     return (
-      <Fragment>
-        <h1>I'm going to be a great connexion formular !</h1>
-      </Fragment>
-    );
-  }
+      <Form>
+        <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+          <Input type="email" name="email" id="exampleEmail" placeholder="entrez votre adresse mail" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">Mot de passe</Label>
+          <Input type="password" name="password" id="examplePassword" placeholder="entrez votre mot de passe" />
+        </FormGroup>
+        <Button>Connexion</Button>
+        <h4>Pas encore inscrit ? <Link to="/Inscription">Inscrivez-vous</Link> dès maintenant</h4>
+      </Form>
+    )
 }
 
 export default Connexion;

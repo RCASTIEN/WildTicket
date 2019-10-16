@@ -5,6 +5,7 @@ import FAQ from "./Components/NavBar/FAQ";
 import Home from "./Components/HomePage/Home";
 import Contact from "./Components/Form/Contact";
 import Connexion from "./Components/Form/Connexion";
+import Inscription from "./Components/Form/Inscription";
 import "./App.css";
 
 function App({ location }) {
@@ -17,6 +18,7 @@ function App({ location }) {
               <Route path="/FAQ" component={FAQ} />
               <Route path="/Contact" component={Contact} />
               <Route path="/Connexion" component={Connexion} />
+              <Route path="/Inscription" component={Inscription} />
             </Switch>
         </section>
     </div>
