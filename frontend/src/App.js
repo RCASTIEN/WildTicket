@@ -1,7 +1,10 @@
 import React from "react";
 import { withRouter, Route, Switch } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
+import FAQ from "./Components/NavBar/FAQ";
 import Home from "./Components/HomePage/Home";
+import Contact from "./Components/Form/Contact";
+import Connexion from "./Components/Form/Connexion";
 import "./App.css";
 
 function App({ location }) {
@@ -11,6 +14,9 @@ function App({ location }) {
           <section className="route-section">
             <Switch location={location} key={location}>
               <Route exact path="/" component={Home} />
+              <Route path="/FAQ" component={FAQ} />
+              <Route path="/Contact" component={Contact} />
+              <Route path="/Connexion" component={Connexion} />
             </Switch>
         </section>
     </div>
