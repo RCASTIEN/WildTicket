@@ -1,20 +1,28 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "./router/Home";
-import Test from "./router/Test";
+import React from "react";
+import { withRouter, Route, Switch } from "react-router-dom";
+import NavBar from "./Components/NavBar/NavBar";
+import FAQ from "./Components/NavBar/FAQ";
+import Home from "./Components/HomePage/Home";
+import Contact from "./Components/Form/Contact";
+import Connexion from "./Components/Form/Connexion";
+import Inscription from "./Components/Form/Inscription";
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/test" component={Test} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+function App({ location }) {
+  return (
+    <div className="App">
+      <NavBar />
+          <section className="route-section">
+            <Switch location={location} key={location}>
+              <Route exact path="/" component={Home} />
+              <Route path="/FAQ" component={FAQ} />
+              <Route path="/Contact" component={Contact} />
+              <Route path="/Connexion" component={Connexion} />
+              <Route path="/Inscription" component={Inscription} />
+            </Switch>
+        </section>
+    </div>
+  );
 }
 
-export default App;
+export default withRouter(App);
