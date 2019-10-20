@@ -16,7 +16,7 @@ const NavBar = (props) => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/"><img alt="Logo" src="https://i.postimg.cc/JzMM2v9K/logo192.png" class="logo" /></NavbarBrand>
+        <NavbarBrand href="/"><img alt="Logo" src="https://i.postimg.cc/JzMM2v9K/logo192.png" /></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
