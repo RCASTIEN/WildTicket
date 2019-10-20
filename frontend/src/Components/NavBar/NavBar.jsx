@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Collapse,
   Navbar,
@@ -6,9 +6,10 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink } from 'reactstrap';
+  NavLink
+} from "reactstrap";
 
-const NavBar = (props) => {
+const NavBar = props => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -16,7 +17,9 @@ const NavBar = (props) => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/"><img alt="Logo" src="https://i.postimg.cc/JzMM2v9K/logo192.png" class="logo" /></NavbarBrand>
+        <NavbarBrand href="/">
+          <img alt="Logo" src="https://i.postimg.cc/JzMM2v9K/logo192.png" />
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
@@ -34,6 +37,6 @@ const NavBar = (props) => {
       </Navbar>
     </div>
   );
-}
+};
 
 export default NavBar;
