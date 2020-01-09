@@ -9,6 +9,7 @@ class Inscription extends React.Component {
     this.state = {
       signUpEmail: "",
       signUpPassword: "",
+      signUpPasswordConfim: "",
       signInID: "",
       signUpError: ""
     };
@@ -21,6 +22,7 @@ class Inscription extends React.Component {
   };
 
   signUp = event => {
+    const token = localStorage.getItem("token");
     event.preventDefault();
     const errors = {};
 
@@ -29,6 +31,7 @@ class Inscription extends React.Component {
     );
     errors.signUpPasswordError = this.state.signUpPassword.length <= 7;
     this.setState(errors);
+
     if (!errors.signUpEmailError && !errors.signUpPasswordError) {
       axios
         .post(
@@ -37,16 +40,27 @@ class Inscription extends React.Component {
             email: this.state.signUpEmail,
             password: this.state.signUpPassword
           },
-          { headers: { Accept: "application/json" } }
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`
+            }
+          }
         )
         .then(res => {
-          if (res.data.code === 201) {
+          if (res.data.code === 200) {
+            console.log("Réussi !");
             cogoToast.success("Inscription réussie", { position: "top-right" });
-            this.autoSignIn();
+            const { history } = this.props;
+            const { token } = res.data;
+            localStorage.setItem("token", token);
+            history.push("/");
           }
         })
         .catch(error => {
           cogoToast.error("L'inscription a échoué", { position: "top-right" });
+          console.log("23");
+          console.log(token);
         });
     }
   };
@@ -82,17 +96,13 @@ class Inscription extends React.Component {
           <Label for="examplePassword">Confirmer votre mot de passe</Label>
           <Input
             type="password"
-            name="signUpPassword"
+            name="signUpPasswordConfim"
             id="examplePassword"
             placeholder="entrez votre mot de passe"
             ref={ref => (this.examplePassword = ref)}
             onChange={this.handleChange}
-            value={this.state.signUpPassword}
+            value={this.state.signUpPasswordConfim}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleText">Date de naissance</Label>
-          <Input type="textarea" name="text" id="birthdate" />
         </FormGroup>
         <FormGroup check>
           <Label check>
