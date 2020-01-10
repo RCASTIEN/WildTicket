@@ -27,7 +27,7 @@ class Connexion extends React.Component {
     axios
       .post(
         "http://localhost:5000/api/connexion",
-        { signInEmail, signInPassword },
+        { email: signInEmail, password: signInPassword },
         {
           headers: {
             Authorization: `Bearer ${token}`

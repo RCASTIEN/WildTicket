@@ -47,7 +47,9 @@ class Inscription extends React.Component {
           }
         )
         .then(res => {
-          if (res.data.code === 201) {
+          console.log(res);
+          if (res.status === 200) {
+            console.log("tu es co'");
             cogoToast.success("Inscription réussie", { position: "top-right" });
             const { history } = this.props;
             const { token } = res.data;
@@ -56,6 +58,7 @@ class Inscription extends React.Component {
           }
         })
         .catch(error => {
+          console.log("tu es pas co'");
           console.log(error);
           console.log(token);
           cogoToast.error("L'inscription a échoué", { position: "top-right" });
