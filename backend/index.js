@@ -37,6 +37,7 @@ app.post("/api/inscription", (req, res) => {
       [email],
       (err, results) => {
         if (err) {
+          console.log("Coucou" + err);
           res.status(500).send("Une erreur inconnue s'est produite.");
         } else if (results.length) {
           res.status(200).send({
@@ -56,6 +57,7 @@ app.post("/api/inscription", (req, res) => {
               [email, passwordHash],
               (err, results) => {
                 if (err) {
+                  console.log("chico" + err);
                   res
                     .status(500)
                     .send("Erreur lors de la création du compte !");
@@ -83,6 +85,7 @@ app.post("/api/inscription", (req, res) => {
 app.post("/api/connexion", (req, res) => {
   passport.authenticate("local", { session: false }, (err, email, info) => {
     if (err || !email) {
+      console.log("chico" + err);
       return res.status(401).json({
         message: "Authentication failed.",
         email,
@@ -92,6 +95,7 @@ app.post("/api/connexion", (req, res) => {
     }
     req.login(email, { session: false }, loginErr => {
       if (loginErr) {
+        console.log("chico22" + loginErr);
         return res.status(401).json({
           message: "Authentication failed.",
           email,
