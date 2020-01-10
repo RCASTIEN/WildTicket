@@ -22,12 +22,15 @@ class Connexion extends React.Component {
 
   signIn = event => {
     event.preventDefault();
-    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    const token = user.token;
+    console.log("token" + token);
     let { signInEmail, signInPassword } = this.state;
     axios
       .post(
         "http://localhost:5000/api/connexion",
-        { signInEmail, signInPassword },
+        { email: signInEmail,
+          password: signInPassword },
         {
           headers: {
             Authorization: `Bearer ${token}`
