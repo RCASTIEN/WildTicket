@@ -42,7 +42,9 @@ class Connexion extends React.Component {
             signInId: data.id
           }
         });
+        const { history } = this.props;
         localStorage.setItem("user", JSON.stringify(data));
+        history.push("/");
       });
   };
 
