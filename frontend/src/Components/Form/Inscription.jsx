@@ -31,7 +31,6 @@ class Inscription extends React.Component {
     );
     errors.signUpPasswordError = this.state.signUpPassword.length <= 7;
     this.setState(errors);
-
     if (!errors.signUpEmailError && !errors.signUpPasswordError) {
       axios
         .post(
@@ -48,8 +47,7 @@ class Inscription extends React.Component {
           }
         )
         .then(res => {
-          if (res.data.code === 200) {
-            console.log("Réussi !");
+          if (res.data.code === 201) {
             cogoToast.success("Inscription réussie", { position: "top-right" });
             const { history } = this.props;
             const { token } = res.data;
@@ -58,9 +56,9 @@ class Inscription extends React.Component {
           }
         })
         .catch(error => {
-          cogoToast.error("L'inscription a échoué", { position: "top-right" });
-          console.log("23");
+          console.log(error);
           console.log(token);
+          cogoToast.error("L'inscription a échoué", { position: "top-right" });
         });
     }
   };

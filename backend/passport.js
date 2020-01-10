@@ -1,7 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { Strategy: JWTStrategy, ExtractJwt } = require("passport-jwt");
-const { dbPort, jwtSecret } = require("./conf");
+const { dbPort, jwtSecret } = require("./conf.js");
 const bcrypt = require("bcrypt");
 
 //======================================================= LOGIN STRATEGY

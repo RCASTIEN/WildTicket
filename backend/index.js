@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 const PORT = 5000;
-
+const { dbPort, saltRounds, jwtSecret } = require("./conf.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("./passport.js");
 
 // --------------------- USE MODULES
 
@@ -22,15 +25,14 @@ app.get("/", (request, response) => {
 });
 
 //-------------------------------------------------- SIGNUP
-app.post("/inscription", (req, res) => {
+app.post("/api/inscription", (req, res) => {
   const email = req.body.email;
-  const username = req.body.username;
   const password = req.body.password;
 
-  if (!email || !username || !password) {
+  if (!email || !password) {
     res.status(401).send({ error: "Tous les champs sont obligatoires." });
   } else {
-    db.query(
+    dbPort.query(
       `SELECT email FROM user WHERE email = ?`,
       [email],
       (err, results) => {
@@ -49,9 +51,9 @@ app.post("/inscription", (req, res) => {
             }
             const passwordHash = hash;
 
-            db.query(
-              `INSERT INTO user (email, password, pseudo) values (?,?,?)`,
-              [email, passwordHash, username],
+            dbPort.query(
+              `INSERT INTO user (email, password) values (?,?)`,
+              [email, passwordHash],
               (err, results) => {
                 if (err) {
                   res
@@ -60,7 +62,6 @@ app.post("/inscription", (req, res) => {
                 } else {
                   const userInfo = {
                     id: results.insertId,
-                    username: username,
                     email: email
                   };
                   res.status(200).send({
@@ -79,28 +80,28 @@ app.post("/inscription", (req, res) => {
 });
 
 //-------------------------------------------------- LOGIN/REGISTRE
-app.post("/connexion", (req, res) => {
-  passport.authenticate("local", { session: false }, (err, user, info) => {
-    if (err || !user) {
+app.post("/api/connexion", (req, res) => {
+  passport.authenticate("local", { session: false }, (err, email, info) => {
+    if (err || !email) {
       return res.status(401).json({
         message: "Authentication failed.",
-        user,
+        email,
         err,
         info
       });
     }
-    req.login(user, { session: false }, loginErr => {
+    req.login(email, { session: false }, loginErr => {
       if (loginErr) {
         return res.status(401).json({
           message: "Authentication failed.",
-          user,
+          email,
           loginErr
         });
       }
-      user.password = undefined;
-      const userInfo = user;
-      const token = jwt.sign(JSON.stringify(user), jwtSecret);
-      res.json({ userInfo, token }).status(200);
+      email.password = undefined;
+      const emailInfo = email;
+      const token = jwt.sign(JSON.stringify(email), jwtSecret);
+      res.json({ emailInfo, token }).status(200);
     });
   })(req, res);
 });
@@ -119,7 +120,7 @@ app.listen(PORT, err => {
 //   passport.authenticate("jwt", { session: false }),
 //   (req, res) => {
 //     const formData = req.body;
-//     db.query("INSERT INTO `favorite` SET ?", formData, (err, results) => {
+//     dbPort.query("INSERT INTO `favorite` SET ?", formData, (err, results) => {
 //       if (err) {
 //         res.status(500).send("Erreur lors de l'ajout du favorite");
 //       } else {
