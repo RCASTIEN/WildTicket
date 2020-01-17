@@ -9,9 +9,9 @@ import Inscription from "./Components/Form/Inscription";
 import NotFound from "./Components/HomePage/NotFound";
 import TermsOfUse from "./Components/HomePage/PageFooter/TermsOfUse";
 import Footer from "./Components/HomePage/Footer";
-import Favorite from "./Components/NavBar/Social/Favorite";
-import Concert from "./Components/NavBar/Social/Concert";
-import Artiste from "./Components/NavBar/Social/Artiste";
+import Favorite from "./Components/Music/Favorite";
+import Concert from "./Components/Music/Concert";
+import Artiste from "./Components/Music/Artiste";
 import "./App.css";
 
 function App({ location }) {
