@@ -93,7 +93,7 @@ class Artiste extends Component {
             <div key={i}>
               <div className="shadow my-5 p-3">
                 <a
-                  href={"/concert/" + this.state.artists[i].id}
+                  href={"/Location/" + this.state.artists[i].id}
                   alt=""
                   target="_blank"
                   rel="noopener noreferrer"
