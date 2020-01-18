@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Card, CardImg, CardBody, CardTitle, Col } from "reactstrap";
 import { Heart } from "react-feather";
-//import Background from "https://i.postimg.cc/KzGt5rCH/background-image.jpg";
 import axios from "axios";
 
 class Bands extends React.Component {

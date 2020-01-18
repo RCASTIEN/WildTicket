@@ -10,7 +10,6 @@ class Favorite extends Component {
   render() {
     return (
       <Fragment>
-        By Rémi CASTIEN
         <Container className="bg-to-delete">
           <FavoriteConcertList />
         </Container>

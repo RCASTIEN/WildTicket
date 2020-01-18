@@ -1,21 +1,22 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 
-class Artiste extends Component {
+class Artists extends Component {
   constructor(props) {
     super(props);
     this.state = {
       artists: [],
       artistName: "Not on Tour...",
       artistId: ""
-      //${this.props.match.params.artistId}
+      //${this.props.match.params.artistId} idartistexemple74226742
     };
   }
 
   componentDidMount() {
+    //let { artists, artistName, artistId } = this.state;
     axios
       .get(
-        `https://api.songkick.com/api/3.0/artists/${this.props.match.params.artistId}/calendar.json?apikey=5yrQwIh2tGWNTggG`
+        `https://api.songkick.com/api/3.0/artists/39078789/calendar.json?apikey=5yrQwIh2tGWNTggG`
       )
       .then(res => {
         this.setState({
@@ -26,8 +27,9 @@ class Artiste extends Component {
           artistId:
             res.data.resultsPage.results.event[0].performance[0].artist.id
         });
-        console.log(this.props);
+        console.log("ICI");
       });
+    console.log("res");
   }
 
   render() {
@@ -50,7 +52,7 @@ class Artiste extends Component {
             alt="Background"
             title={this.state.artistName}
           />
-          {/* <img
+          <img
             className="doublev"
             style={{
               backgroundImage: `url(https://i.postimg.cc/KzGt5rCH/background-image.jpg)`,
@@ -81,7 +83,7 @@ class Artiste extends Component {
             }
             alt="T"
             title={this.state.artistName}
-          /> */}
+          />
           <div className="shadow text-center">
             <h2>{this.state.artistName}</h2>
             <p>{this.state.artists.length + " date(s)"}</p>
@@ -93,7 +95,7 @@ class Artiste extends Component {
             <div key={i}>
               <div className="shadow my-5 p-3">
                 <a
-                  href={"/Location/" + this.state.artists[i].id}
+                  href={"/Lieu/" + this.state.artists[i].id}
                   alt=""
                   target="_blank"
                   rel="noopener noreferrer"
@@ -120,4 +122,4 @@ class Artiste extends Component {
   }
 }
 
-export default Artiste;
+export default Artists;
