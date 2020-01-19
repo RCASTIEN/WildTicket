@@ -8,15 +8,13 @@ class Artists extends Component {
       artists: [],
       artistName: "Not on Tour...",
       artistId: ""
-      //${this.props.match.params.artistId} idartistexemple74226742
     };
   }
 
   componentDidMount() {
-    //let { artists, artistName, artistId } = this.state;
     axios
       .get(
-        `https://api.songkick.com/api/3.0/artists/39078789/calendar.json?apikey=5yrQwIh2tGWNTggG`
+        `https://api.songkick.com/api/3.0/artists/${this.props.match.params.artistId}/calendar.json?apikey=5yrQwIh2tGWNTggG`
       )
       .then(res => {
         this.setState({
@@ -29,7 +27,7 @@ class Artists extends Component {
         });
         console.log("ICI");
       });
-    console.log("res");
+    console.log(this.setState());
   }
 
   render() {

@@ -30,7 +30,7 @@ function App({ location }) {
           <Route path="/Favorite" component={Favorite} />
           <Route path="/Concert" component={Concert} />
           <Route path="/Lieu/:concertId" component={Location} />
-          <Route path="/Artiste/:artistId'" component={Artiste} />
+          <Route path="/Artiste/:artistId" component={Artiste} />
           <Route component={NotFound} />
         </Switch>
       </section>
