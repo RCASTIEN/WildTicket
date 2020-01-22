@@ -29,8 +29,7 @@ class Connexion extends React.Component {
     axios
       .post(
         "http://localhost:5000/api/connexion",
-        { email: signInEmail,
-          password: signInPassword },
+        { email: signInEmail, password: signInPassword },
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -45,7 +44,9 @@ class Connexion extends React.Component {
             signInId: data.id
           }
         });
+        const { history } = this.props;
         localStorage.setItem("user", JSON.stringify(data));
+        history.push("/");
       });
   };
 

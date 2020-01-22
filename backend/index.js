@@ -32,8 +32,8 @@ app.post("/api/inscription", (req, res) => {
 	} else {
 		dbPort.query(`SELECT email FROM user WHERE email = ?`, [email], (err, results) => {
 			if (err) {
+				console.log("Coucou" + err);
 				res.status(500).send("Une erreur inconnue s'est produite.");
-				console.log("pipo" + err);
 			} else if (results.length) {
 				res.status(200).send({
 					error: "L'adresse email existe déjà."
@@ -75,9 +75,7 @@ app.post("/api/inscription", (req, res) => {
 app.post("/api/connexion", (req, res) => {
 	passport.authenticate("local", { session: false }, (err, email, info) => {
 		if (err || !email) {
-			console.log("err: " + err);
-			console.log("email:" + email);
-			console.log("yo");
+			console.log("chico" + err);
 			return res.status(401).json({
 				message: "Authentication failed.",
 				email,
@@ -87,7 +85,7 @@ app.post("/api/connexion", (req, res) => {
 		}
 		req.login(email, { session: false }, loginErr => {
 			if (loginErr) {
-				console.log("yeh baby" + loginErr);
+				console.log("chico22" + loginErr);
 				return res.status(401).json({
 					message: "Authentication failed.",
 					email,

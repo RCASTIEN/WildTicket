@@ -9,9 +9,10 @@ import Inscription from "./Components/Form/Inscription";
 import NotFound from "./Components/HomePage/NotFound";
 import TermsOfUse from "./Components/HomePage/PageFooter/TermsOfUse";
 import Footer from "./Components/HomePage/Footer";
-import Favorite from "./Components/NavBar/Social/Favorite";
-import Concert from "./Components/NavBar/Social/Concert";
-import Artiste from "./Components/NavBar/Social/Artiste";
+import Favorite from "./Components/Music/Favorite";
+import Concert from "./Components/Music/Concert";
+import Artiste from "./Components/Music/Artist";
+import Location from "./Components/Music/Location";
 import "./App.css";
 
 function App({ location }) {
@@ -25,11 +26,12 @@ function App({ location }) {
           <Route path="/Contact" component={Contact} />
           <Route path="/Connexion" component={Connexion} />
           <Route path="/Inscription" component={Inscription} />
-          <Route path="/NotFound" component={NotFound} />
           <Route path="/TermsOfUse" component={TermsOfUse} />
           <Route path="/Favorite" component={Favorite} />
           <Route path="/Concert" component={Concert} />
-          <Route path="/Artiste" component={Artiste} />
+          <Route path="/Lieu/:concertId" component={Location} />
+          <Route path="/Artiste/:artistId" component={Artiste} />
+          <Route component={NotFound} />
         </Switch>
       </section>
       <Footer />
