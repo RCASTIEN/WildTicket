@@ -9,7 +9,10 @@ class EventsList extends Component {
     this.state = {
       eventArray: [],
       alert: false,
-      message: undefined
+      message: undefined,
+      userId: "",
+      favoritesList: [],
+      artistList: []
     };
     this.handleAlert = this.handleAlert.bind(this);
   }
@@ -29,6 +32,8 @@ class EventsList extends Component {
   }
 
   componentDidMount() {
+    let user = JSON.parse(localStorage.getItem("user"));
+    this.setState({ userId: user.emailInfo.id_user });
     axios
       .get(
         "https://api.songkick.com/api/3.0/metro_areas/28886/calendar.json?apikey=5yrQwIh2tGWNTggG"
@@ -48,9 +53,22 @@ class EventsList extends Component {
           eventArray: mySortedEvents
         });
       });
+    this.updateList(user.emailInfo.id_user);
   }
 
+  updateList = id => {
+    if (id !== "") {
+      axios.get(`http://localhost:5000/api/favorites/user/${id}`).then(res => {
+        const artistList = res.data.map(e => {
+          return e.id_artist;
+        });
+        this.setState({ favoritesList: res.data, artistList: artistList });
+      });
+    }
+  };
+
   render() {
+    console.log(this.state.artistList);
     return (
       <Fragment>
         {this.state.alert && (
@@ -61,6 +79,18 @@ class EventsList extends Component {
         <Container>
           <Row className="scrolling-wrapper-flexbox grid">
             {this.state.eventArray.map((eachEvent, i) => {
+              let favorite = false;
+              let favoriteId = [];
+              if (this.state.artistList.includes(eachEvent.id)) {
+                favorite = true;
+
+                favoriteId = this.state.favoritesList
+                  .filter(e => e.id_artist === eachEvent.id)
+                  .map(e => {
+                    return e.id_favorite;
+                  });
+                console.log(favoriteId);
+              }
               return (
                 eachEvent.performance[0] && (
                   <Bands
@@ -72,6 +102,10 @@ class EventsList extends Component {
                     link={eachEvent.performance[0].artist.id}
                     fav={eachEvent.id}
                     alertFunction={this.handleAlert}
+                    userId={this.state.userId}
+                    favorited={favorite}
+                    favoriteId={favoriteId}
+                    updateList={this.updateList}
                   />
                 )
               );

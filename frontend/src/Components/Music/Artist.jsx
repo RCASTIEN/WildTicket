@@ -1,5 +1,14 @@
 import React, { Component, Fragment } from "react";
+import Background from "../../Pictures/Background/background_image.jpg";
 import axios from "axios";
+
+const formatDate = paramDate => {
+  let setDate = paramDate;
+  let regex = /^2019-/g;
+  setDate = setDate.replace(regex, "");
+  regex = /-/g;
+  return (setDate = setDate.replace(regex, "/"));
+};
 
 class Artists extends Component {
   constructor(props) {
@@ -37,7 +46,7 @@ class Artists extends Component {
           <img
             className="cadre"
             style={{
-              backgroundImage: `url(https://i.postimg.cc/KzGt5rCH/background-image.jpg)`,
+              backgroundImage: `url(${Background})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat"
@@ -53,7 +62,7 @@ class Artists extends Component {
           <img
             className="doublev"
             style={{
-              backgroundImage: `url(https://i.postimg.cc/KzGt5rCH/background-image.jpg)`,
+              backgroundImage: `url(${Background})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat"
@@ -69,7 +78,7 @@ class Artists extends Component {
           <img
             className="tet"
             style={{
-              backgroundImage: `url(https://i.postimg.cc/KzGt5rCH/background-image.jpg)`,
+              backgroundImage: `url(${Background})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat"
@@ -104,7 +113,7 @@ class Artists extends Component {
                       {artist.location.city}
                     </h5>
                     <h5 className="col-sm-4 col-12 text-center">
-                      {artist.start.date}
+                      {formatDate(artist.start.date)}
                     </h5>
                     <h5 className="col-sm-4 col-12 text-center">
                       {artist.start.time}

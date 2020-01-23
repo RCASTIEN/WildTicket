@@ -25,6 +25,7 @@ app.get("/", (request, response) => {
 });
 
 //-------------------------------------------------- SIGNUP
+
 app.post("/api/inscription", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -82,6 +83,7 @@ app.post("/api/inscription", (req, res) => {
 });
 
 //-------------------------------------------------- LOGIN/REGISTRE
+
 app.post("/api/connexion", (req, res) => {
   passport.authenticate("local", { session: false }, (err, email, info) => {
     if (err || !email) {
@@ -110,26 +112,65 @@ app.post("/api/connexion", (req, res) => {
   })(req, res);
 });
 
+app.get("/api/favorites/user/:id", (req, res) => {
+  const id = req.params.id;
+  dbPort.query(
+    "SELECT * FROM `favorite` WHERE id_user =  ? ",
+    id,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Erreur lors de la recherche des favori");
+      } else {
+        console.log(results);
+        res.json(results);
+      }
+    }
+  );
+});
+
+//-------------------------------------------------- ADD NEW FAVORITE TO DATABASE
+
+app.post("/api/favorites", (req, res) => {
+  const id_user = req.body.id_user;
+  const id_artist = req.body.id_artist;
+  dbPort.query(
+    `INSERT INTO favorite (id_user, id_artist) VALUES (?,?)`,
+    [id_user, id_artist],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Erreur lors de l'ajout du favori");
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+
+//-------------------------------------------------- DELETE FAVORITE BY ID IN DATABASE
+
+app.delete("/api/favorites/:id", (req, res) => {
+  const id = req.params.id;
+  dbPort.query(
+    `DELETE FROM favorite WHERE id_favorite = ?`,
+    id,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Erreur lors de suppression d'un favori");
+      } else {
+        res.send("Favori supprimé");
+      }
+    }
+  );
+});
+
+//-------------------------------------------------- PAGE FAV
+
 app.listen(PORT, err => {
   if (err) {
     throw new Error("Something bad happened...");
   }
   console.log(`Server is listening on ${PORT}`);
 });
-
-//-------------------------------------------------- ADD NEW FAVORITE TO DATABASE
-
-// app.post(
-//   "/api/favorite/",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     const formData = req.body;
-//     dbPort.query("INSERT INTO `favorite` SET ?", formData, (err, results) => {
-//       if (err) {
-//         res.status(500).send("Erreur lors de l'ajout du favorite");
-//       } else {
-//         res.json(results);
-//       }
-//     });
-//   }
-// );

@@ -9,7 +9,7 @@ class Home extends Component {
 
         <h2>Comment ça marche ?</h2>
         <h3>_________________</h3>
-        <h2>Prêt à découvrir l'expérence WildTickets ?</h2>
+        <h2>Prêt à découvrir l'expérience WildTickets ?</h2>
         <button>
           <Link to="/Inscription">Inscrivez-vous</Link>
         </button>

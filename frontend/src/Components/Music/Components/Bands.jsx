@@ -1,13 +1,15 @@
 import React from "react";
 import { Button, Card, CardImg, CardBody, CardTitle, Col } from "reactstrap";
 import { Heart } from "react-feather";
+import Background from "../../../Pictures/Background/background_image.jpg";
 import axios from "axios";
+
+import "../../../Styles/Card.css";
 
 class Bands extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorited: false,
       id: ""
     };
     this.handleAddToFavorite = this.handleAddToFavorite.bind(this);
@@ -15,43 +17,31 @@ class Bands extends React.Component {
 
   handleAddToFavorite(e) {
     e.preventDefault();
-    this.setState(
-      {
-        favorited: !this.state.favorited
-      },
-      () => {
-        this.props.alertFunction(
-          this.state.favorited
-            ? "This band was added to your favorites !"
-            : "This band was removed from your favorite."
-        );
-        if (this.state.favorited) {
-          axios.post("http://localhost:5000/api/favorites", {
-            band_id: this.props.fav
-          });
-        } else {
-          const idEvent = this.props.fav;
-          axios
-            .get("http://localhost:5000/api/favorites?band_id=" + idEvent)
-            .then(res => {
-              this.setState(
-                {
-                  id: res.data[0].id
-                },
-                () => {
-                  axios.delete(
-                    "http://localhost:5000/api/favorites/" + this.state.id
-                  );
-                }
-              );
-            });
-        }
-      }
-    );
+
+    if (!this.props.favorited) {
+      axios
+        .post("http://localhost:5000/api/favorites", {
+          id_user: this.props.userId,
+          id_artist: this.props.fav
+        })
+        .then(() => {
+          this.props.alertFunction("This band was added to your favorites !");
+        });
+    } else {
+      axios
+        .delete(
+          "http://localhost:5000/api/favorites/" + this.props.favoriteId[0]
+        )
+        .then(() => {
+          this.props.alertFunction("This band was removed from your favorite.");
+        });
+    }
+    this.props.updateList(this.props.userId);
   }
 
   render() {
     const { name, avatar } = this.props;
+    console.log(this.props.favorited);
     return (
       <React.Fragment>
         <Col className="grid__item verticalCard">
@@ -60,7 +50,7 @@ class Bands extends React.Component {
               <CardImg
                 className="oblique-img"
                 style={{
-                  backgroundImage: `url(https://i.postimg.cc/KzGt5rCH/background-image.jpg)`,
+                  backgroundImage: `url(${Background})`,
                   backgroundPosition: "center",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat"
@@ -79,9 +69,8 @@ class Bands extends React.Component {
               </CardTitle>
               <Heart
                 onClick={this.handleAddToFavorite}
-                className={
-                  this.state.favorited ? "heart-filled" : "heart-little-card"
-                }
+                color={this.props.favorited ? "red" : "black"}
+                fill={this.props.favorited ? "red" : "none"}
               />
               <a href={`/Artiste/${avatar}`}>
                 <Button className="discover-btn">DISCOVER</Button>
