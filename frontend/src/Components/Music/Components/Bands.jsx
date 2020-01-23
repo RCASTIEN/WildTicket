@@ -7,38 +7,32 @@ class Bands extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			favorited: this.props.favorited,
+			//favorited: this.props.favorited,
 			id: ""
 		};
 		this.handleAddToFavorite = this.handleAddToFavorite.bind(this);
-  }
-
+	}
 
 	handleAddToFavorite(e) {
 		e.preventDefault();
-		this.setState(
-			{
-				favorited: !this.state.favorited
-			},
-			() => {
-				this.props.alertFunction(
-					this.state.favorited
-						? "This band was added to your favorites !"
-						: "This band was removed from your favorite."
-				);
-				if (this.state.favorited) {
-					axios.post("http://localhost:5000/api/favorites", {
-						id_user: this.props.userId,
-						id_artist: this.props.fav
-					});
-				} else {
 
-					axios.delete("http://localhost:5000/api/favorites/" + this.props.favoriteId[0]);
-        }
-        this.props.updateList(this.props.userId);
-			}
-    );
-    
+		if (!this.props.favorited) {
+			axios
+				.post("http://localhost:5000/api/favorites", {
+					id_user: this.props.userId,
+					id_artist: this.props.fav
+				})
+				.then(() => {
+					this.props.alertFunction("This band was added to your favorites !");
+				});
+		} else {
+			axios
+				.delete("http://localhost:5000/api/favorites/" + this.props.favoriteId[0])
+				.then(() => {
+					this.props.alertFunction("This band was removed from your favorite.");
+				});
+		}
+		this.props.updateList(this.props.userId);
 	}
 
 	render() {
@@ -72,6 +66,7 @@ class Bands extends React.Component {
 							<Heart
 								onClick={this.handleAddToFavorite}
 								color={this.props.favorited ? "red" : "black"}
+								fill={this.props.favorited ? "red" : "none"}
 							/>
 							<a href={`/Artiste/${avatar}`}>
 								<Button className="discover-btn">DISCOVER</Button>
