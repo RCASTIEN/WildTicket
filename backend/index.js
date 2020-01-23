@@ -166,8 +166,6 @@ app.delete("/api/favorites/:id", (req, res) => {
   );
 });
 
-//-------------------------------------------------- PAGE FAV
-
 app.listen(PORT, err => {
   if (err) {
     throw new Error("Something bad happened...");

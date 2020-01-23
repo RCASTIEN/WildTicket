@@ -9,6 +9,7 @@ import {
   Row
 } from "reactstrap";
 import { Save } from "react-feather";
+import Background from "../../../Pictures/Background/background_image.jpg";
 import axios from "axios";
 
 const formatDate = paramDate => {
@@ -38,17 +39,17 @@ class HorizontalCard extends React.Component {
       () => {
         this.props.alertFunction(
           this.state.favorited
-            ? "This concert was added to your favorites !"
-            : "This concert was removed from your favorite."
+            ? "This band was added to your favorites !"
+            : "This band was removed from your favorite."
         );
         if (this.state.favorited) {
-          axios.post("http://localhost:5000/api/concerts", {
-            concert_id: this.props.fav
+          axios.post("http://localhost:5050/favorites", {
+            band_id: this.props.fav
           });
         } else {
           const idEvent = this.props.fav;
           axios
-            .get("http://localhost:5000/api/concerts?concert_id=" + idEvent)
+            .get("http://localhost:5050/favorites?band_id=" + idEvent)
             .then(res => {
               this.setState(
                 {
@@ -56,7 +57,7 @@ class HorizontalCard extends React.Component {
                 },
                 () => {
                   axios.delete(
-                    "http://localhost:5000/api/concerts/" + this.state.id
+                    "http://localhost:5050/favorites/" + this.state.id
                   );
                 }
               );
@@ -65,6 +66,7 @@ class HorizontalCard extends React.Component {
       }
     );
   }
+
   render() {
     const { name, date, venue, avatar, fav } = this.props;
 
@@ -97,7 +99,7 @@ class HorizontalCard extends React.Component {
                 <CardImg
                   className="obliqueVertical-img"
                   style={{
-                    backgroundImage: `url(https://i.postimg.cc/KzGt5rCH/background-image.jpg)`,
+                    backgroundImage: `url(${Background})`,
                     backgroundPosition: "center",
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat"
