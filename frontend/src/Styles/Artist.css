@@ -1,0 +1,89 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  color: #727070;
+}
+.cadre {
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0% 50%);
+  width: 39vw;
+  margin-left: 40%;
+  transform: translate(-50%);
+  position: absolute;
+  filter: blur(10px);
+}
+.cadre:hover {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  filter: blur(0px);
+  z-index: 1000;
+}
+
+.doublev {
+  clip-path: polygon(
+    0 10%,
+    27% 10%,
+    27% 19%,
+    19% 19%,
+    29% 60%,
+    30% 60%,
+    44% 10%,
+    55% 10%,
+    70% 60%,
+    71% 60%,
+    80% 19%,
+    72% 19%,
+    72% 10%,
+    100% 10%,
+    100% 19%,
+    93% 19%,
+    76% 88%,
+    65% 88%,
+    50% 37%,
+    49% 37%,
+    34% 88%,
+    23% 88%,
+    6% 19%,
+    0 19%
+  );
+  width: 39vw;
+  margin-left: 40%;
+  transform: translate(-50%);
+  position: absolute;
+  filter: brightness(1.25);
+}
+.doublev:hover {
+  filter: brightness(1);
+  z-index: 1000;
+}
+
+.tet {
+  clip-path: polygon(
+    9% 0,
+    90% 0,
+    90% 25%,
+    76% 25%,
+    76% 14%,
+    57% 14%,
+    57% 84%,
+    68% 87%,
+    68% 100%,
+    31% 100%,
+    31% 87%,
+    42% 84%,
+    42% 14%,
+    23% 14%,
+    23% 25%,
+    9% 25%
+  );
+  width: 39vw;
+  margin-left: 40%;
+  transform: translate(-50%);
+  position: relative;
+  filter: blur(10px) brightness(1.5);
+}
+.tet:hover {
+  filter: brightness(0.75);
+  z-index: 1000;
+}

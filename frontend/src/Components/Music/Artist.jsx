@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Background from "../../Pictures/Background/background_image.jpg";
 import axios from "axios";
+import "../../Styles/Artist.css";
 
 const formatDate = paramDate => {
   let setDate = paramDate;

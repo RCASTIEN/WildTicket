@@ -5,13 +5,25 @@ class Footer extends Component {
   render() {
     return (
       <Fragment>
-        <button>
-          <Link to="https://twitter.com/WildSchoolLille">WildCodeSchool</Link>
-        </button>
-        By Rémi CASTIEN
-        <button>
-          <Link to="/TermsOfUse">Terme d'utilisation</Link>
-        </button>
+        <div className="footer">
+          <a
+            target="_blank"
+            href="https://twitter.com/WildSchoolLille"
+            rel="noopener noreferrer"
+          >
+            {" "}
+            WildCodeSchool
+          </a>
+          <a
+            target="_blank"
+            href="https://www.songkick.com/"
+            rel="noopener noreferrer"
+          >
+            {" "}
+            Songkick
+          </a>
+          <Link to="/TermsOfUse"> Terme d'utilisation</Link>
+        </div>
       </Fragment>
     );
   }
