@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../../Styles/Connexion.css";
 
 class Connexion extends React.Component {
   constructor(props) {
@@ -79,10 +80,13 @@ class Connexion extends React.Component {
             value={this.state.signInPassword}
           />
         </FormGroup>
-        <Button>Connexion</Button>
+        <Button className="discover-btn-send">Connexion</Button>
         <h4>
-          Pas encore inscrit ? <Link to="/Inscription">Inscrivez-vous</Link> dès
-          maintenant
+          Pas encore inscrit ?{" "}
+          <Link to="/Inscription" className="send">
+            Inscrivez-vous
+          </Link>{" "}
+          dès maintenant
         </h4>
       </Form>
     );

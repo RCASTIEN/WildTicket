@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
 import cogoToast from "cogo-toast";
+import "../../Styles/Inscription.css";
 
 class Inscription extends React.Component {
   constructor(props) {
@@ -116,7 +117,7 @@ class Inscription extends React.Component {
             promotionnels
           </Label>
         </FormGroup>
-        <Button>Inscription</Button>
+        <Button className="discover-btn-send">Inscription</Button>
       </Form>
     );
   }

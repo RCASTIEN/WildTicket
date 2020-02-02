@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  padding-top: 20px;
+}
+.link {
+  margin: 20px;
+  color: #727070;
+}
+
+.link:hover {
+  color: #ff6f91;
+  text-decoration: none;
+}

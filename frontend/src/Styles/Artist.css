@@ -1,11 +1,3 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
-  color: #727070;
-}
 .cadre {
   clip-path: polygon(0 0, 100% 0, 100% 75%, 0% 50%);
   width: 39vw;
