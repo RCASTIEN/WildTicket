@@ -14,9 +14,10 @@ class NavBarWild extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      NavBarSwitch: false
+      navBarSwitch: false
     };
     this.toggle = this.toggle.bind(this);
+    console.log(this.state.navBarSwitch);
   }
 
   toggle() {
@@ -25,9 +26,18 @@ class NavBarWild extends React.Component {
     });
   }
 
+  toggleSign = () => {
+    const token = localStorage.getItem("token");
+    const navBarSwitch = this.state.navBarSwitch;
+    this.setState({
+      navBarSwitch: navBarSwitch ? false : true
+    });
+    console.log(token);
+  };
+
   render() {
-    const NavBarSwitch = this.props.switchNav;
-    if (!NavBarSwitch) {
+    const navBarSwitch = this.state.navBarSwitch;
+    if (!navBarSwitch) {
       return (
         <div>
           <Navbar color="light" light expand="md">

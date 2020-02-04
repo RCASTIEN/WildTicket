@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../../Styles/Connexion.css";
+import "../../Styles/Login.css";
 
-class Connexion extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,4 +92,4 @@ class Connexion extends React.Component {
     );
   }
 }
-export default Connexion;
+export default Login;
