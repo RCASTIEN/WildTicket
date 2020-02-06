@@ -1,0 +1,15 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  color: #727070;
+}
+
+.discover-btn-login {
+  background-image: linear-gradient(to right, #ff9671, #ff6f91);
+  border: none !important;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}

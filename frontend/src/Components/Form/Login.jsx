@@ -2,8 +2,9 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../../Styles/Login.css";
 
-class Connexion extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +27,7 @@ class Connexion extends React.Component {
     let { signInEmail, signInPassword } = this.state;
     axios
       .post(
-        "http://localhost:5000/api/connexion",
+        "http://localhost:5000/api/login",
         { email: signInEmail, password: signInPassword },
         {
           headers: {
@@ -79,13 +80,16 @@ class Connexion extends React.Component {
             value={this.state.signInPassword}
           />
         </FormGroup>
-        <Button>Connexion</Button>
+        <Button className="discover-btn-send">Connexion</Button>
         <h4>
-          Pas encore inscrit ? <Link to="/Inscription">Inscrivez-vous</Link> dès
-          maintenant
+          Pas encore inscrit ?{" "}
+          <Link to="/Inscription" className="send">
+            Inscrivez-vous
+          </Link>{" "}
+          dès maintenant
         </h4>
       </Form>
     );
   }
 }
-export default Connexion;
+export default Login;

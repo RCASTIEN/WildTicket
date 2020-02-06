@@ -1,0 +1,32 @@
+.img-container {
+  height: 10rem;
+  width: 12.5rem;
+}
+
+.grid__item {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.verticalCard {
+  border-radius: 1rem;
+  min-width: 14rem;
+}
+.ellips-title {
+  margin-top: 35px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 183px;
+  display: block;
+  overflow: hidden;
+}
+.heart-little-card {
+  margin: 6px 10px;
+}
+
+.discover-btn {
+  background-image: linear-gradient(to right, #ff9671, #ff6f91);
+  float: right;
+  border: none !important;
+}

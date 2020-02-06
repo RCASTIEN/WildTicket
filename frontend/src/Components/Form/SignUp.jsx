@@ -2,8 +2,9 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
 import cogoToast from "cogo-toast";
+import "../../Styles/Signup.css";
 
-class Inscription extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +35,7 @@ class Inscription extends React.Component {
     if (!errors.signUpEmailError && !errors.signUpPasswordError) {
       axios
         .post(
-          "http://localhost:5000/api/inscription",
+          "http://localhost:5000/api/signup",
           {
             email: this.state.signUpEmail,
             password: this.state.signUpPassword
@@ -47,9 +48,7 @@ class Inscription extends React.Component {
           }
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
-            console.log("tu es co'");
             cogoToast.success("Inscription réussie", { position: "top-right" });
             const { history } = this.props;
             const { token } = res.data;
@@ -58,9 +57,6 @@ class Inscription extends React.Component {
           }
         })
         .catch(error => {
-          console.log("tu es pas co'");
-          console.log(error);
-          console.log(token);
           cogoToast.error("L'inscription a échoué", { position: "top-right" });
         });
     }
@@ -116,9 +112,9 @@ class Inscription extends React.Component {
             promotionnels
           </Label>
         </FormGroup>
-        <Button>Inscription</Button>
+        <Button className="discover-btn-send">Inscription</Button>
       </Form>
     );
   }
 }
-export default Inscription;
+export default SignUp;

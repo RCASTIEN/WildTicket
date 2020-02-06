@@ -25,7 +25,8 @@ app.get("/", (request, response) => {
 });
 
 //-------------------------------------------------- SIGNUP
-app.post("/api/inscription", (req, res) => {
+
+app.post("/api/signup", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -37,7 +38,6 @@ app.post("/api/inscription", (req, res) => {
       [email],
       (err, results) => {
         if (err) {
-          console.log("Coucou" + err);
           res.status(500).send("Une erreur inconnue s'est produite.");
         } else if (results.length) {
           res.status(200).send({
@@ -57,7 +57,6 @@ app.post("/api/inscription", (req, res) => {
               [email, passwordHash],
               (err, results) => {
                 if (err) {
-                  console.log("chico" + err);
                   res
                     .status(500)
                     .send("Erreur lors de la création du compte !");
@@ -82,10 +81,10 @@ app.post("/api/inscription", (req, res) => {
 });
 
 //-------------------------------------------------- LOGIN/REGISTRE
-app.post("/api/connexion", (req, res) => {
+
+app.post("/api/login", (req, res) => {
   passport.authenticate("local", { session: false }, (err, email, info) => {
     if (err || !email) {
-      console.log("chico" + err);
       return res.status(401).json({
         message: "Authentication failed.",
         email,
@@ -95,7 +94,6 @@ app.post("/api/connexion", (req, res) => {
     }
     req.login(email, { session: false }, loginErr => {
       if (loginErr) {
-        console.log("chico22" + loginErr);
         return res.status(401).json({
           message: "Authentication failed.",
           email,
@@ -110,26 +108,59 @@ app.post("/api/connexion", (req, res) => {
   })(req, res);
 });
 
+app.get("/api/favorites/user/:id", (req, res) => {
+  const id = req.params.id;
+  dbPort.query(
+    "SELECT * FROM `favorite` WHERE id_user =  ? ",
+    id,
+    (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur lors de la recherche des favori");
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+
+//-------------------------------------------------- ADD NEW FAVORITE TO DATABASE
+
+app.post("/api/favorites", (req, res) => {
+  const id_user = req.body.id_user;
+  const id_artist = req.body.id_artist;
+  dbPort.query(
+    `INSERT INTO favorite (id_user, id_artist) VALUES (?,?)`,
+    [id_user, id_artist],
+    (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur lors de l'ajout du favori");
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+
+//-------------------------------------------------- DELETE FAVORITE BY ID IN DATABASE
+
+app.delete("/api/favorites/:id", (req, res) => {
+  const id = req.params.id;
+  dbPort.query(
+    `DELETE FROM favorite WHERE id_favorite = ?`,
+    id,
+    (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur lors de suppression d'un favori");
+      } else {
+        res.send("Favori supprimé");
+      }
+    }
+  );
+});
+
 app.listen(PORT, err => {
   if (err) {
     throw new Error("Something bad happened...");
   }
   console.log(`Server is listening on ${PORT}`);
 });
-
-//-------------------------------------------------- ADD NEW FAVORITE TO DATABASE
-
-// app.post(
-//   "/api/favorite/",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     const formData = req.body;
-//     dbPort.query("INSERT INTO `favorite` SET ?", formData, (err, results) => {
-//       if (err) {
-//         res.status(500).send("Erreur lors de l'ajout du favorite");
-//       } else {
-//         res.json(results);
-//       }
-//     });
-//   }
-// );
