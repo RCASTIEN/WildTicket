@@ -68,7 +68,6 @@ class EventsList extends Component {
   };
 
   render() {
-    console.log(this.state.artistList);
     return (
       <Fragment>
         {this.state.alert && (

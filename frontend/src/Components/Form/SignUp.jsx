@@ -35,7 +35,7 @@ class SignUp extends React.Component {
     if (!errors.signUpEmailError && !errors.signUpPasswordError) {
       axios
         .post(
-          "http://localhost:5000/api/inscription",
+          "http://localhost:5000/api/signup",
           {
             email: this.state.signUpEmail,
             password: this.state.signUpPassword

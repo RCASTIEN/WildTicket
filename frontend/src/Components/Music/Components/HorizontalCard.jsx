@@ -24,7 +24,6 @@ class HorizontalCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorited: false,
       id: ""
     };
     this.handleAddToFavorite = this.handleAddToFavorite.bind(this);
@@ -32,43 +31,30 @@ class HorizontalCard extends React.Component {
 
   handleAddToFavorite(e) {
     e.preventDefault();
-    this.setState(
-      {
-        favorited: !this.state.favorited
-      },
-      () => {
-        this.props.alertFunction(
-          this.state.favorited
-            ? "This band was added to your favorites !"
-            : "This band was removed from your favorite."
-        );
-        if (this.state.favorited) {
-          axios.post("http://localhost:5050/favorites", {
-            band_id: this.props.fav
-          });
-        } else {
-          const idEvent = this.props.fav;
-          axios
-            .get("http://localhost:5050/favorites?band_id=" + idEvent)
-            .then(res => {
-              this.setState(
-                {
-                  id: res.data[0].id
-                },
-                () => {
-                  axios.delete(
-                    "http://localhost:5050/favorites/" + this.state.id
-                  );
-                }
-              );
-            });
-        }
-      }
-    );
+
+    if (!this.props.favorited) {
+      axios
+        .post("http://localhost:5000/api/favorites", {
+          id_user: this.props.userId,
+          id_artist: this.props.fav
+        })
+        .then(() => {
+          this.props.alertFunction("This band was added to your favorites !");
+        });
+    } else {
+      axios
+        .delete(
+          "http://localhost:5000/api/favorites/" + this.props.favoriteId[0]
+        )
+        .then(() => {
+          this.props.alertFunction("This band was removed from your favorite.");
+        });
+    }
+    this.props.updateList(this.props.userId);
   }
 
   render() {
-    const { name, date, venue, avatar, fav } = this.props;
+    const { name, date, venue, avatar } = this.props;
 
     return (
       <div className="grid__item horizontalCard">
@@ -85,11 +71,10 @@ class HorizontalCard extends React.Component {
                 </CardTitle>
                 <Save
                   onClick={this.handleAddToFavorite}
-                  className={
-                    this.state.favorited ? "heart-filled" : "heart-little-card"
-                  }
+                  color={this.props.favorited ? "red" : "black"}
+                  fill={this.props.favorited ? "red" : "none"}
                 />
-                <a href={`/concert/${fav}`}>
+                <a href={`/Artiste/${avatar}`}>
                   <Button className="horizontal-discover-btn">DISCOVER</Button>
                 </a>
               </CardBody>

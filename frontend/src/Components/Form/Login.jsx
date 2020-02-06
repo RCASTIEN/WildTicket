@@ -27,7 +27,7 @@ class Login extends React.Component {
     let { signInEmail, signInPassword } = this.state;
     axios
       .post(
-        "http://localhost:5000/api/connexion",
+        "http://localhost:5000/api/login",
         { email: signInEmail, password: signInPassword },
         {
           headers: {

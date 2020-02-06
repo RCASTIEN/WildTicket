@@ -26,7 +26,7 @@ app.get("/", (request, response) => {
 
 //-------------------------------------------------- SIGNUP
 
-app.post("/api/inscription", (req, res) => {
+app.post("/api/signup", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -82,7 +82,7 @@ app.post("/api/inscription", (req, res) => {
 
 //-------------------------------------------------- LOGIN/REGISTRE
 
-app.post("/api/connexion", (req, res) => {
+app.post("/api/login", (req, res) => {
   passport.authenticate("local", { session: false }, (err, email, info) => {
     if (err || !email) {
       return res.status(401).json({
