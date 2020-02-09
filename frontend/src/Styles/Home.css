@@ -7,6 +7,27 @@ p {
   color: #727070;
 }
 
+.section {
+  display: flex;
+  justify-content: center;
+}
+
+.article {
+  margin: 20px;
+  padding: 0 20px;
+  font-size: 18px;
+  width: 800px;
+  display: flex;
+  justify-content: center;
+}
+.margin {
+  margin-top: 35px;
+}
+
+.button {
+  margin-top: 20px;
+}
+
 .discover-btn-login {
   background-image: linear-gradient(to right, #ff9671, #ff6f91);
   border: none !important;
